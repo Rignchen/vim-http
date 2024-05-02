@@ -1,7 +1,13 @@
 import vim
 
+def http_print(text: str):
+    print(text)
+    return
+    vim.command(f"new")
+    vim.command(f"normal! i{text}\n")
+
 def http_help():
-    print("""This is the help function for the http plugin.
+    http_print("""This is the help function for the http plugin.
     - Http: displays this help message.
     - HttpRun: run the current request.
     - HttpRunAll: run all requests in the current buffer.
