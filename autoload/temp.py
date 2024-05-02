@@ -41,7 +41,7 @@ Example:
     }
 """)
 
-def http_getCurrentRequest():
+def http_getCurrentRequest() -> list[str]:
     lines = vim.current.buffer
     start_line, _ = vim.current.window.cursor
     start = start_line - 1
@@ -52,7 +52,7 @@ def http_getCurrentRequest():
         stop += 1
     return lines[start:stop]
 
-def http_parseRequest(request) -> tuple[list[str], str, str, dict[str, str], str]:
+def http_parseRequest(request: list[str]) -> tuple[list[str], str, str, dict[str, str], str]:
     """
     Parse a request and return the method, the url, the headers and the body
 
@@ -70,15 +70,9 @@ def http_parseRequest(request) -> tuple[list[str], str, str, dict[str, str], str
         raise ValueError("Request need to follow this format:\n#comments\nMETHOD url\nheader_name: header_value\n\nboddy")
     output[0:2] = request.pop(0)
     if len(request) > 0:
-        ...
-    return tuple(output)
 
-def http_run(command):
+def http_curl(command: list[str]):
     ...
-
-def http_curl(command):
-    ...
-
 
 ...;...;...;...;...;...
 
