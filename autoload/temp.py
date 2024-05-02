@@ -1,11 +1,3 @@
-" Title:        Http
-" Description:  A plugin for http
-" Last Change:  24 April 2024
-" Maintainer:   Rignchen <https://github.com/Rignchen>
-" License:      CC-BY-NC-SA
-
-
-python3 << EOF
 import vim
 
 def http_help():
@@ -71,19 +63,4 @@ def http_run(command):
 
 def http_curl(command):
 	...
-
-EOF
-
-function! http#help()
-	python3 http_help()
-endfunction
-function! http#run()
-	python3 http_run(getCurrentRequest())
-endfunction
-function! http#runall()
-	python3 for line in [l.split('\n') for l in '\n'.join(vim.current.buffer).split('###')]: http_run(line)
-endfunction
-function! http#curl()
-	python3 gttp_curl(vim.current.line)
-endfunction
 
