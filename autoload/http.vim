@@ -37,10 +37,28 @@ def getCurrentRequest():
         stop += 1
     return lines[start:stop]
 
+def http_parseRequest(request):
+	...
+
+def http_run(command):
+	...
+
+def http_curl(command):
+	...
+
 EOF
 
 function! http#help()
 	python3 http_help()
+endfunction
+function! http#run()
+	python3 http_run(getCurrentRequest())
+endfunction
+function! http#runall()
+	python3 for line in [l.split('\n') for l in '\n'.join(vim.current.buffer).split('###')]: http_run(line)
+endfunction
+function! http#curl()
+	python3 gttp_curl(vim.current.line)
 endfunction
 
 
