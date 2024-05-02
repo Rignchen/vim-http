@@ -1,4 +1,5 @@
 import vim
+import re
 
 class http_request:
     def __init__(self, method: str = "", url: str = "", headers: dict[str, str] = {}, body: str = "", instructions: list[str] = []):
