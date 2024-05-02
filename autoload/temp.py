@@ -1,6 +1,7 @@
 import vim
 import re
 import requests
+import datetime
 
 class http_request:
     def __init__(self, method: str = "", url: str = "", headers: dict[str, str] = {}, body: str = "", instructions: list[str] = []):
@@ -54,7 +55,7 @@ class http_response:
             return
         
         # get the name of the file
-        name = self.instructions.get("@name", "http_log") + f"__{self.code}"
+        name = f"{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_{self.instructions.get("@name", "")}_{self.code}"
 
         # get the file format
         format = '.' + self.instructions.get("@file-format", "log")
