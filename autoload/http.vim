@@ -45,8 +45,26 @@ def getCurrentRequest():
         stop += 1
     return lines[start:stop]
 
-def http_parseRequest(request):
-	...
+def http_parseRequest(request) -> tuple[list[str], str, str, dict[str, str], str]:
+	"""
+	Parse a request and return the method, the url, the headers and the body
+
+	Parsed format:
+	method url
+	header_name: header_value
+
+	body
+	"""
+	output = [[], "", "", {}, ""]
+	if len(request) == 0:
+		raise Exception("Request cannot be empty")
+	request[0] = request[0]replace(,' ').strip().split(' ')
+	if len(request[0]) != 2:
+		raise Exception("Request need to follow this format:\n#comments\nMETHOD url\nheader_name: header_value\n\nboddy")
+	output[0:2] = request.pop(0)
+	if len(request) > 0:
+		...
+	return tuple(output)
 
 def http_run(command):
 	...
@@ -56,16 +74,16 @@ def http_curl(command):
 
 EOF
 
-function! http#help()
+function! _http_help()
 	python3 http_help()
 endfunction
-function! http#run()
+function! _http_run()
 	python3 http_run(getCurrentRequest())
 endfunction
-function! http#runall()
+function! _http_runall()
 	python3 for line in [l.split('\n') for l in '\n'.join(vim.current.buffer).split('###')]: http_run(line)
 endfunction
-function! http#curl()
+function! _http_curl()
 	python3 gttp_curl(vim.current.line)
 endfunction
 
