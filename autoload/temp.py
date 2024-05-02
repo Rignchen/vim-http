@@ -59,6 +59,10 @@ class http_response:
 
         # get the file format
         format = '.' + self.instructions.get("@file-format", "log")
+        
+        # write the response in the file
+        with open(f"{name}.{format}", "w") as file:
+            file.write(self.text)
     def display(self):
         # ensure you're supposed to display the response
         if self.instructions.get("@no-output", False):
