@@ -86,6 +86,8 @@ def http_parseRequest(request: list[str]):
     # get instructions, remove other comments
     for i in range(n-1,-1,-1):
         if request[i].startswith("#"):
+            if re.match('^#{3,} {0,}[a-zA-Z0-9_\-]{1,}$',request[i]):
+                request[i] = re.sub('^#{3,} {0,}','#@name ',request[i], flags=re.DOTALL)
             request[i] = re.sub('^(#|\s){2,}','#',request[i], flags=re.DOTALL)
             if re.match('^#@.+',request[i]):
                 output.instructions.insert(0,request.pop(i)[1:])
