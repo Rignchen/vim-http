@@ -2,10 +2,10 @@ import vim
 
 def http_help():
     print("""This is the help function for the http plugin.
-- Http: displays this help message.
-- HttpRun: run the current request.
-- HttpRunAll: run all requests in the current buffer.
-- HttpCurl: Transform the curl command into the corresponding http request.
+    - Http: displays this help message.
+    - HttpRun: run the current request.
+    - HttpRunAll: run all requests in the current buffer.
+    - HttpCurl: Transform the curl command into the corresponding http request.
 
 Requests are defined inside .http files using the folowing syntax:
     METHOD url
