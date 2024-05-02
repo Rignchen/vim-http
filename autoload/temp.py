@@ -2,6 +2,7 @@ import vim
 import re
 import requests
 import datetime
+import os
 
 class http_request:
     def __init__(self, method: str = "", url: str = "", headers: dict[str, str] = {}, body: str = "", instructions: list[str] = []):
@@ -59,6 +60,13 @@ class http_response:
 
         # get the file format
         format = '.' + self.instructions.get("@file-format", "log")
+
+        # ensure the file doesn't already exist
+        os.makedirs(os.path.dirname(f"{name}.{format}"), exist_ok=True)
+        if os.path.exists(f"{name}.{format}"):
+            count = 0
+            while os.path.exists(f"{name}({count}).{format}"):count += 1
+            name = f"{name}({count})"
         
         # write the response in the file
         with open(f"{name}.{format}", "w") as file:
