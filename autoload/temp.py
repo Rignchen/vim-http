@@ -41,7 +41,7 @@ Example:
     }
 """)
 
-def getCurrentRequest():
+def http_getCurrentRequest():
     lines = vim.current.buffer
     start_line, _ = vim.current.window.cursor
     start = start_line - 1
