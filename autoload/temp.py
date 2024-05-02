@@ -42,6 +42,12 @@ class http_color:
     gray = "\033[90m"
     bold = "\033[1m"
     
+class http_response:
+    def __init__(self, text: str, code: int, headers: dict[str, str], instructions: dict[str, str|bool]):
+        self.text = text
+        self.code = code
+        self.headers = "".join(f'\n{k}: {v}' for k,v in headers.items())
+        self.instructions = instructions
 
 def http_print(text: str):
     print(text)
