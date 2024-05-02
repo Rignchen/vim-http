@@ -56,6 +56,10 @@ class http_response:
         # ensure you're supposed to display the response
         if self.instructions.get("@no-output", False):
             return
+        
+        # remove html balises if needed
+        if self.instructions.get("@html", False):
+            self.text = re.sub('<[^<]+?>', '', self.text, flags=re.DOTALL)
 
         name = f"{http_color.purple}{self.instructions['@name']}{http_color.reset}\n" if '@name' in self.instructions else ""
 
