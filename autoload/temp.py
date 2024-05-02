@@ -48,6 +48,14 @@ class http_response:
         self.code = code
         self.headers = "".join(f'\n{k}: {v}' for k,v in headers.items())
         self.instructions = instructions
+    def write_in_file(self):
+        # ensure you're supposed to write in a file
+        if self.instructions.get("@no-log", False):
+            return
+    def display(self):
+        # ensure you're supposed to display the response
+        if self.instructions.get("@no-output", False):
+            return
 
 def http_print(text: str):
     print(text)
