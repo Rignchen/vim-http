@@ -73,11 +73,24 @@ def http_parseRequest(request: list[str]):
     if len(request) == 0:
         raise ValueError("Request cannot be empty")
     output = http_request()
-    request[0] = request[0].replace('',' ').strip().split(' ')
+        
+    # remove leading and trailing whitespaces
+    for n in range(len(request)):
+        if re.match('^\s*#', request[n]): # comments
+            request[n] = re.sub(' {2,}',' ', request[n].replace('\t',' '), flags=re.DOTALL).strip()
+        elif re.match('^\s.+\s:', request[n]): # headers
+            continue
+        elif re.match('^\s*$', request[n]): # begining of the body
+            break # we have to keep the whole body intact so we can't remove leading and trailing whitespaces
+
+        
+    # get method and url
+    request[0] = request[0].split(' ')
     if len(request[0]) != 2:
         raise ValueError("Request need to follow this format:\n#comments\nMETHOD url\nheader_name: header_value\n\nboddy")
     output.method = request[0][0]
     output.url = request.pop(0)[1]
+
     if len(request) > 0:
         ...
     return output
