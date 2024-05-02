@@ -24,6 +24,14 @@ Requests are defined inside .http files using the folowing syntax:
 Requests can be separated by 3 # characters on a new line.
 # characters can be used at the beginning of a line to add comments.
 #@ can be used to give instructions to the plugin.
+
+List of available instructions:
+	- @name: give a name to the request. This name will be used to name the log file
+	- @no-log: by default the plugin store the response in a log file at the root of the project. This instruction disable this behavior
+	- @no-output: by default the plugin display the response in a new buffer. This instruction disable this behavior
+	- @html: remove every html balises from the response before displaying it in the buffer, the log file is not affecte
+	- @file-format <format>: the log file will be named with the specified format
+
 """)
 
 def getCurrentRequest():
