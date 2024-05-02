@@ -73,3 +73,9 @@ def http_run(command):
 def http_curl(command):
     ...
 
+
+...;...;...;...;...;...
+
+vim.current.window.cursor = (7,5)
+
+print(http_getCurrentRequest())
