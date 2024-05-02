@@ -59,6 +59,12 @@ class http_response:
 
         name = f"{http_color.purple}{self.instructions['@name']}{http_color.reset}\n" if '@name' in self.instructions else ""
 
+        if self.code == 200:          code = ""
+        elif 201 <= self.code <= 299: code = f"{http_color.green }{http_color.bold}{self.code}{http_color.reset}\n"
+        elif 300 <= self.code <= 399: code = f"{http_color.yellow}{http_color.bold}{self.code}{http_color.reset}\n"
+        elif 400 <= self.code <= 499: code = f"{http_color.purple}{http_color.bold}{self.code}{http_color.reset}\n"
+        elif 500 <= self.code <= 599: code = f"{http_color.red   }{http_color.bold}{self.code}{http_color.reset}\n"
+        else:                         code = f"{http_color.blue  }{http_color.bold}{self.code}{http_color.reset}\n"
         
         headers = f"{http_color.gray}{self.headers}{http_color.reset}\n" if self.headers != "" else ""
 
