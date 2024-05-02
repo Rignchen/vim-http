@@ -13,6 +13,8 @@ class http_request:
         istructions = "".join(f'\n#@ {i}' for i in self.instructions)
         headers = "".join(f'\n{k}: {v}' for k,v in self.headers.items())
         return f"{name}{istructions}\n{self.method} {self.url}{headers}\n\n{self.body}"
+    def run(self):
+        response = requests.request(self.method, self.url, headers=self.headers, data=self.body))
 
 def http_print(text: str):
     print(text)
@@ -128,4 +130,4 @@ def http_curl(command: list[str]):
 
 vim.current.window.cursor = (7,5)
 
-print(http_parseRequest(http_getCurrentRequest()).run())
+print(http_parseRequest(http_getCurrentRequest()))
