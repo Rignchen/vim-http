@@ -66,10 +66,12 @@ class http_response:
             # remove styles
             self.text = re.sub('<style.+?</style>', '', self.text, flags=re.DOTALL)
             # remove html balises
-            self.text = re.sub('<[^<]+?>', '', self.text, flags=re.DOTALL)
+            self.text = re.sub('<(?!br>)[^<]+?>', '', self.text, flags=re.DOTALL)
             # remove multiple spaces
             self.text = re.sub('\n\s+', '\n', self.text, flags=re.DOTALL)
             self.text = re.sub('\s{2,}', ' ', self.text, flags=re.DOTALL)
+            # add line breaks back
+            self.text = self.text.replace('<br>', '\n')
 
         name = f"{http_color.purple}{self.instructions['@name']}{http_color.reset}\n" if '@name' in self.instructions else ""
 
