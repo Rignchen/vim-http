@@ -115,6 +115,10 @@ def http_parseRequest(request: list[str]):
                 raise ValueError(f"Header need to follow this format:\nheader_name: header_value")
             output.headers[header[0].strip()] = header[1].strip()
 
+        # get body
+        if len(request) > 1:
+            output.body = "\n".join(request[1:])
+        
     return output
 
 def http_curl(command: list[str]):
