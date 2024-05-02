@@ -56,7 +56,7 @@ class http_response:
             return
         
         # get the name of the file
-        name = f"{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_{self.instructions.get("@name", "")}_{self.code}"
+        name = f"{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_{self.instructions.get('@name', '')}_{self.code}"
 
         # get the file format
         format = '.' + self.instructions.get("@file-format", "log")
@@ -229,4 +229,4 @@ def http_htmlSpecialCharacters(text: str):
 
 vim.current.window.cursor = (14,5)
 
-print(http_parseRequest(http_getCurrentRequest()).run().display())
+http_parseRequest(http_getCurrentRequest()).run().display()
