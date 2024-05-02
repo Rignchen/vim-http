@@ -108,7 +108,13 @@ def http_parseRequest(request: list[str]):
     output.url = request.pop(0)[1]
 
     if len(request) > 0:
-        ...
+        # get headers
+        while len(request) > 0 and request[0] != "":
+            header = request.pop(0).split(':',1)
+            if len(header) != 2:
+                raise ValueError(f"Header need to follow this format:\nheader_name: header_value")
+            output.headers[header[0].strip()] = header[1].strip()
+
     return output
 
 def http_curl(command: list[str]):
