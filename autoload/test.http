@@ -9,3 +9,11 @@ Content-Type: application/json
 {
 	"key": "value"
 }
+
+###
+GET http://localhost:3000
+
+###
+# @no-log
+#@html
+GET http://google.com

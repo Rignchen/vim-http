@@ -14,7 +14,12 @@ class http_request:
         headers = "".join(f'\n{k}: {v}' for k,v in self.headers.items())
         return f"{name}{istructions}\n{self.method} {self.url}{headers}\n\n{self.body}"
     def run(self):
-        response = requests.request(self.method, self.url, headers=self.headers, data=self.body))
+
+        try:
+            response = requests.request(self.method, self.url, headers=self.headers, data=self.body,  timeout=10)
+        except requests.exceptions.ConnectTimeout:
+            return http_response(f"{http_color.red}Connection Timeout{http_color.reset}", 408, {}, parced_instructions)
+
 
 def http_print(text: str):
     print(text)
@@ -128,6 +133,6 @@ def http_curl(command: list[str]):
 
 ...;...;...;...;...;...
 
-vim.current.window.cursor = (7,5)
+vim.current.window.cursor = (14,5)
 
 print(http_parseRequest(http_getCurrentRequest()))
