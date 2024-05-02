@@ -57,6 +57,13 @@ class http_response:
         if self.instructions.get("@no-output", False):
             return
 
+        name = f"{http_color.purple}{self.instructions['@name']}{http_color.reset}\n" if '@name' in self.instructions else ""
+
+        
+        headers = f"{http_color.gray}{self.headers}{http_color.reset}\n" if self.headers != "" else ""
+
+        http_print(f"{name}{code}{headers}\n{self.text}")
+
 def http_print(text: str):
     print(text)
     return
@@ -172,4 +179,4 @@ def http_curl(command: list[str]):
 
 vim.current.window.cursor = (14,5)
 
-print(http_parseRequest(http_getCurrentRequest()))
+print(http_parseRequest(http_getCurrentRequest()).run().display())
