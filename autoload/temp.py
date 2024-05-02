@@ -59,12 +59,17 @@ class http_response:
         
         # remove html balises if needed
         if self.instructions.get("@html", False):
+            # remove comments
+            self.text = re.sub('<!--.+?-->', '', self.text, flags=re.DOTALL)
             # remove scripts
             self.text = re.sub('<script.+?</script>', '', self.text, flags=re.DOTALL)
             # remove styles
             self.text = re.sub('<style.+?</style>', '', self.text, flags=re.DOTALL)
             # remove html balises
             self.text = re.sub('<[^<]+?>', '', self.text, flags=re.DOTALL)
+            # remove multiple spaces
+            self.text = re.sub('\n\s+', '\n', self.text, flags=re.DOTALL)
+            self.text = re.sub('\s{2,}', ' ', self.text, flags=re.DOTALL)
 
         name = f"{http_color.purple}{self.instructions['@name']}{http_color.reset}\n" if '@name' in self.instructions else ""
 
