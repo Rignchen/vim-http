@@ -24,6 +24,15 @@ List of available instructions:
     - @html: remove every html balises from the response before displaying it in the buffer, the log file is not affecte
     - @file-format <format>: the log file will be named with the specified format
 
+Example:
+    ### Add toto to the users
+    POST http://localhost:3000/users
+    Authorization: Bearer 1234567890
+
+    {
+        "name": "toto",
+        "age": 42
+    }
 """)
 
 def getCurrentRequest():
