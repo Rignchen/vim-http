@@ -20,6 +20,19 @@ class http_request:
         except requests.exceptions.ConnectTimeout:
             return http_response(f"{http_color.red}Connection Timeout{http_color.reset}", 408, {}, parced_instructions)
 
+class http_color:
+    reset = "\033[0m"
+    red = "\033[31m"
+    green = "\033[32m"
+    yellow = "\033[33m"
+    blue = "\033[34m"
+    purple = "\033[35m"
+    cyan = "\033[36m"
+    white = "\033[37m"
+    black = "\033[30m"
+    gray = "\033[90m"
+    bold = "\033[1m"
+    
 
 def http_print(text: str):
     print(text)
