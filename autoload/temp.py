@@ -83,6 +83,14 @@ def http_parseRequest(request: list[str]):
         elif re.match('^\s*$', request[n]): # begining of the body
             break # we have to keep the whole body intact so we can't remove leading and trailing whitespaces
 
+    # get instructions, remove other comments
+    for i in range(n-1,-1,-1):
+        if request[i].startswith("#"):
+            request[i] = re.sub('^(#|\s){2,}','#',request[i], flags=re.DOTALL)
+            if re.match('^#@.+',request[i]):
+                output.instructions.insert(0,request.pop(i)[1:])
+            else:
+                request.pop(i)
         
     # get method and url
     request[0] = request[0].split(' ')
