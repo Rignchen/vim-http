@@ -14,6 +14,16 @@ def http_help():
 - HttpRun: run the current request.
 - HttpRunAll: run all requests in the current buffer.
 - HttpCurl: Transform the curl command into the corresponding http request.
+
+Requests are defined inside .http files using the folowing syntax:
+	METHOD url
+	heaser_name: header_value
+
+	body
+
+Requests can be separated by 3 # characters on a new line.
+# characters can be used at the beginning of a line to add comments.
+#@ can be used to give instructions to the plugin.
 """)
 
 def getCurrentRequest():
