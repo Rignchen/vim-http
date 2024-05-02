@@ -19,6 +19,15 @@ class http_request:
             response = requests.request(self.method, self.url, headers=self.headers, data=self.body,  timeout=10)
         except requests.exceptions.ConnectTimeout:
             return http_response(f"{http_color.red}Connection Timeout{http_color.reset}", 408, {}, parced_instructions)
+        
+        # parse the instructions
+        parced_instructions = {}
+        for i in self.instructions:
+            if not i.startswith(("@name", "@no-log", "@no-output", "@html", "@file-format")):
+                raise ValueError(f"Unknown instruction: {i}")
+            parced_instructions[i.split(' ')[0]] = i.split(' ')[1] if ' ' in i else True
+
+        return http_response(response.text, response.status_code, response.headers, parced_instructions)
 
 class http_color:
     reset = "\033[0m"
