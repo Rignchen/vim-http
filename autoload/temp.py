@@ -52,6 +52,12 @@ class http_response:
         # ensure you're supposed to write in a file
         if self.instructions.get("@no-log", False):
             return
+        
+        # get the name of the file
+        name = self.instructions.get("@name", "http_log") + f"__{self.code}"
+
+        # get the file format
+        format = '.' + self.instructions.get("@file-format", "log")
     def display(self):
         # ensure you're supposed to display the response
         if self.instructions.get("@no-output", False):
