@@ -1,5 +1,13 @@
 import vim
 
+class http_request:
+    def __init__(self, method: str = "", url: str = "", headers: dict[str, str] = {}, body: str = "", instructions: list[str] = []):
+        self.method = method
+        self.url = url
+        self.headers = headers
+        self.body = body
+        self.instructions = list(set(instructions))
+
 def http_print(text: str):
     print(text)
     return
@@ -52,7 +60,7 @@ def http_getCurrentRequest() -> list[str]:
         stop += 1
     return lines[start:stop]
 
-def http_parseRequest(request: list[str]) -> tuple[list[str], str, str, dict[str, str], str]:
+def http_parseRequest(request: list[str]):
     """
     Parse a request and return the method, the url, the headers and the body
 
@@ -62,14 +70,17 @@ def http_parseRequest(request: list[str]) -> tuple[list[str], str, str, dict[str
 
     body
     """
-    output = [[], "", "", {}, ""]
     if len(request) == 0:
         raise ValueError("Request cannot be empty")
-    request[0] = request[0].replace(,' ').strip().split(' ')
+    output = http_request()
+    request[0] = request[0].replace('',' ').strip().split(' ')
     if len(request[0]) != 2:
         raise ValueError("Request need to follow this format:\n#comments\nMETHOD url\nheader_name: header_value\n\nboddy")
-    output[0:2] = request.pop(0)
+    output.method = request[0][0]
+    output.url = request.pop(0)[1]
     if len(request) > 0:
+        ...
+    return output
 
 def http_curl(command: list[str]):
     ...
