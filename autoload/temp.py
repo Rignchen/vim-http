@@ -58,10 +58,10 @@ def http_parseRequest(request) -> tuple[list[str], str, str, dict[str, str], str
     """
     output = [[], "", "", {}, ""]
     if len(request) == 0:
-        raise Exception("Request cannot be empty")
-    request[0] = request[0]replace(,' ').strip().split(' ')
+        raise ValueError("Request cannot be empty")
+    request[0] = request[0].replace(,' ').strip().split(' ')
     if len(request[0]) != 2:
-        raise Exception("Request need to follow this format:\n#comments\nMETHOD url\nheader_name: header_value\n\nboddy")
+        raise ValueError("Request need to follow this format:\n#comments\nMETHOD url\nheader_name: header_value\n\nboddy")
     output[0:2] = request.pop(0)
     if len(request) > 0:
         ...
