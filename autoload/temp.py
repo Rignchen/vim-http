@@ -1,5 +1,6 @@
 import vim
 import re
+import requests
 
 class http_request:
     def __init__(self, method: str = "", url: str = "", headers: dict[str, str] = {}, body: str = "", instructions: list[str] = []):
@@ -14,18 +15,17 @@ class http_request:
         headers = "".join(f'\n{k}: {v}' for k,v in self.headers.items())
         return f"{name}{istructions}\n{self.method} {self.url}{headers}\n\n{self.body}"
     def run(self):
-
-        try:
-            response = requests.request(self.method, self.url, headers=self.headers, data=self.body,  timeout=10)
-        except requests.exceptions.ConnectTimeout:
-            return http_response(f"{http_color.red}Connection Timeout{http_color.reset}", 408, {}, parced_instructions)
-        
         # parse the instructions
         parced_instructions = {}
         for i in self.instructions:
-            if not i.startswith(("@name", "@no-log", "@no-output", "@html", "@file-format")):
+            if not i.startswith(("@name", "@no-log", "@no-output", "@html", "@file-format", "@timeout")):
                 raise ValueError(f"Unknown instruction: {i}")
             parced_instructions[i.split(' ')[0]] = i.split(' ')[1] if ' ' in i else True
+
+        try:
+            response = requests.request(self.method, self.url, headers=self.headers, data=self.body,  timeout=int(parced_instructions.get("@timeout", 10)))
+        except requests.exceptions.ConnectTimeout:
+            return http_response(f"{http_color.red}Connection Timeout{http_color.reset}", 408, {}, parced_instructions)
 
         return http_response(response.text, response.status_code, response.headers, parced_instructions)
 
@@ -72,6 +72,7 @@ List of available instructions:
     - @no-output: by default the plugin display the response in a new buffer. This instruction disable this behavior
     - @html: remove every html balises from the response before displaying it in the buffer, the log file is not affecte
     - @file-format <format>: the log file will be named with the specified format
+    - @timeout <seconds>: set the timeout for the request, by default it's 10 seconds
 
 Example:
     ### Add toto to the users
