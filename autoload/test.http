@@ -11,6 +11,17 @@ Content-Type: application/json
 }
 
 ###
+# @no-log
+# @timeout 3
+POST http://192.168.103.195:3300/users
+Content-Type: application/json
+
+{
+	"name": "toto",
+	"age": 30
+}
+
+###
 GET http://localhost:3000
 
 ###

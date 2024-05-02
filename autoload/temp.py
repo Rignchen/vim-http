@@ -28,6 +28,8 @@ class http_request:
             response = requests.request(self.method, self.url, headers=self.headers, data=self.body,  timeout=int(parced_instructions.get("@timeout", 10)))
         except requests.exceptions.ConnectTimeout:
             return http_response(f"{http_color.red}Connection Timeout{http_color.reset}", 408, {}, parced_instructions)
+        except requests.exceptions.ConnectionError:
+            return http_response(f"{http_color.red}Connection Error{http_color.reset}", 404, {}, parced_instructions)
 
         return http_response(response.text, response.status_code, response.headers, parced_instructions)
 
@@ -227,6 +229,6 @@ def http_htmlSpecialCharacters(text: str):
 
 ...;...;...;...;...;...
 
-vim.current.window.cursor = (14,5)
+vim.current.window.cursor = (6,5)
 
 http_parseRequest(http_getCurrentRequest()).run().display()
