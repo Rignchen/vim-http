@@ -1,2 +1,3 @@
 *.sw[pon]
 __pycache__/
+.vim_http/
